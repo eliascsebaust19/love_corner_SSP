@@ -1,5 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Full updated HTML content goes here -->
-<!-- For brevity, we're inserting the complete HTML content from the canvas update -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Love Corners</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      color: #fff;
+      text-align: center;
+    }
+    h1.logo {
+      font-family: 'Pacifico', cursive;
+      font-size: 3em;
+      margin-top: 30px;
+      color: #fff;
+      text-shadow: 2px 2px 4px #ff5e78;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      background: #fff;
+      color: #ff5e78;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 5px;
+    }
+    #message {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #ffebf0;
+    }
+    #mainContent {
+      display: none;
+      margin-top: 40px;
+    }
+    .section {
+      margin: 20px 0;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+    }
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="logo">Love Corners</h1>
+
+  <div class="container" id="loginBox">
+    <h2>Create Your Account</h2>
+    <input type="text" placeholder="Your Name" id="name">
+    <input type="password" placeholder="Password" id="password">
+    <button onclick="createAccount()">Create Account</button>
+    <div id="message"></div>
+  </div>
+
+  <div id="mainContent">
+    <h2>Welcome to Love Corners 💖</h2>
+    <p>All of me loves all of you, Payel 🌹</p>
+    <p>Your smile is my sunshine. This website is made only for you 💕</p>
+
+    <button onclick="showSection('letter')">💌 Love Letter</button>
+    <button onclick="showSection('gallery')">📸 Photo Gallery</button>
+    <button onclick="showSection('rose')">🌹 Send Rose</button>
+    <button onclick="showSection('timeline')">💞 Memory Timeline</button>
+    <button onclick="showSection('game')">🎮 Heart Game</button>
+
+    <audio id="romanticMusic" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_1f8023b91f.mp3?filename=romantic-melody-6045.mp3"></audio>
+
+    <div class="section" id="letter" style="display:none">
+  <h3>Love Letter to Payel 💌</h3>
+  <p>Hey Payel,<br><br>
+  You are not just my girlfriend — you're my best friend, my partner-in-crime, my biggest supporter, and my forever favorite person. 💖<br><br>
+  I love the way you laugh at silly things, the way you care about people around you, and how you light up my world with just a smile. 😍<br><br>
+  Whether we’re chatting late into the night, sending weird memes, or simply holding hands in silence — every moment with you feels like magic. 🪄<br><br>
+  You’re the one I want to share my highs and lows with. You’re not just in my life... you ARE my life. 🌍<br><br>
+  Stay cute. Stay crazy. Stay mine. Forever. ❤️<br><br>
+  With all my heart,<br>
+  — Your Elias 😘
+  </p>
+</div>
+
+    <div class="section" id="gallery" style="display:none">
+      <h3>Photo Gallery 📸</h3>
+      <p>(Your beautiful memories can go here)</p>
+    </div>
+
+    <div class="section" id="rose" style="display:none">
+      <h3>Virtual Rose 🌹</h3>
+      <p>You deserve a flower every day!</p>
+    </div>
+
+    <div class="section" id="timeline" style="display:none">
+      <h3>Our Memory Timeline 💞</h3>
+      <ul style="text-align: left; max-width: 500px; margin: auto;">
+        <li>🌟 First met - 2022</li>
+        <li>💬 First late night chat</li>
+        <li>🎉 First date</li>
+        <li>💖 I fell for you</li>
+        <li>💍 Still counting days until forever...</li>
+      </ul>
+    </div>
+
+    <div class="section" id="game" style="display:none">
+      <h3>Mini Heart Game 🎮</h3>
+      <p>Catch the hearts for love points!</p>
+      <canvas id="heartCanvas" width="300" height="400" style="background:#fff; border-radius:10px;"></canvas>
+    </div>
+  </div>
+
+  <script>
+    function createAccount() {
+      const name = document.getElementById("name").value;
+      const password = document.getElementById("password").value;
+
+      if (name && password) {
+        document.getElementById("message").innerHTML =
+          "<strong>Hey " + name + ", you are already in my heart ❤️<br>No need to create an account.</strong>";
+        setTimeout(() => {
+          document.getElementById("loginBox").style.display = "none";
+          document.getElementById("mainContent").style.display = "block";
+        }, 2000);
+      } else {
+        document.getElementById("message").innerHTML =
+          "Please fill in your name and password ✍️";
+      }
+    }
+
+    function showSection(id) {
+      const sections = ["letter", "gallery", "rose", "timeline", "game"];
+      sections.forEach(sec => document.getElementById(sec).style.display = "none");
+      document.getElementById(id).style.display = "block";
+      document.getElementById("romanticMusic").play();
+    }
+
+    // Mini Heart Game Script (simple)
+    const canvas = document.getElementById('heartCanvas');
+    const ctx = canvas ? canvas.getContext('2d') : null;
+    let hearts = [];
+    let score = 0;
+
+    function drawHeart(x, y) {
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.bezierCurveTo(x, y - 15, x - 25, y - 15, x - 25, y + 10);
+      ctx.bezierCurveTo(x - 25, y + 30, x, y + 45, x, y + 60);
+      ctx.bezierCurveTo(x, y + 45, x + 25, y + 30, x + 25, y + 10);
+      ctx.bezierCurveTo(x + 25, y - 15, x, y - 15, x, y);
+      ctx.fillStyle = 'red';
+      ctx.fill();
+    }
+
+    function animateHearts() {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      hearts.forEach((heart, index) => {
+        heart.y += 2;
+        drawHeart(heart.x, heart.y);
+        if (heart.y > canvas.height) {
+          hearts.splice(index, 1);
+        }
+      });
+      requestAnimationFrame(animateHearts);
+    }
+
+    canvas?.addEventListener('click', (e) => {
+      hearts.forEach((heart, index) => {
+        const dx = e.offsetX - heart.x;
+        const dy = e.offsetY - heart.y;
+        if (Math.sqrt(dx * dx + dy * dy) < 25) {
+          hearts.splice(index, 1);
+          score++;
+        }
+      });
+    });
+
+    setInterval(() => {
+      if (ctx) hearts.push({ x: Math.random() * 280 + 10, y: -20 });
+    }, 1000);
+
+    if (ctx) animateHearts();
+  </script>
+</body>
 </html>
